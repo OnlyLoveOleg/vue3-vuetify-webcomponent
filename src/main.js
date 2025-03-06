@@ -1,11 +1,24 @@
-import { defineCustomElement } from 'vue'
-import {createVuetify} from 'vuetify'
-import MyNavbar from './components/MyNavbar.ce.vue'
+import { defineCustomElement } from './defineCustomElementWithStyles'
+import '@mdi/font/css/materialdesignicons.css'
+import { createVuetify } from 'vuetify';
+import { aliases, mdi } from 'vuetify/iconsets/mdi'
 
-const vuetify = createVuetify({})
+// Import the Vue component.
+import MyNavbarComponent from './components/MyNavbar.ce.vue'
 
-// convert into custom element constructor
-const element = defineCustomElement(MyNavbar, {plugins: [vuetify]})
+const vuetify = createVuetify({
+    icons: {
+        defaultSet: 'mdi',
+        aliases,
+        sets: {
+          mdi,
+        },
+    },
+})
 
-// register
-customElements.define('my-navbar', element)
+customElements.define(
+    'my-navbar',
+    defineCustomElement(MyNavbarComponent, {
+        plugins: [vuetify],
+    })
+)
